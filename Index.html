@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los marcianitos atacan</title>
+
+
+    <link rel = "stylesheet" href = "style.css">
+</head>
+
+
+<body>
+    
+    <div class="espacio">
+        
+
+
+        <div id="enemigos"> </div>
+        
+        <div id="nostromo"></div>
+  
+        <div id="disparos"></div>
+
+        <div id ="back"></div>  
+       
+    </div>
+
+
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"> </script> -->
+
+<!-- <script src="controler.js"> </script> -->
+
+
+<script> 
+//musicote
+const audio = new Audio("music/missle-launch.mp3");
+const musicaFondo = new Audio("music/PareceTetrisPeroEsTetris.mp3");
+const ganaste = new Audio("music/street-fighteryouwin.mp3");
+var ganar = 1;
+
+var disparos = [];
+var nave = {
+        left: 400,
+        top: 700 
+    };
+var enemigos = [
+    { left: 70, top: 100 },
+    { left: 170, top: 100 },
+    { left: 270, top: 100 },
+    { left: 370, top: 100 },
+    { left: 470, top: 100 },
+    { left: 570, top: 100 },
+    { left: 670, top: 100 },
+
+    { left: 20, top: 200 },
+    { left: 120, top: 200 },
+    { left: 220, top: 200 },
+    { left: 320, top: 200 },
+    { left: 420, top: 200 },
+    { left: 520, top: 200 },
+    { left: 620, top: 200 },
+    { left: 720, top: 200 },
+];
+
+
+ 
+
+//console.log(o.which); // 97=a 100=d 119=w 115=s 
+
+document.onkeydown = function(e) {
+
+    if (e.keyCode === 37 || e.keyCode === 97) {
+        nave.left = nave.left - 10;
+        console.log(nave.left);
+    }
+
+    if (e.keyCode === 39 || e.keyCode === 100) {
+        nave.left = nave.left + 10;
+        console.log(nave.left);
+    }
+
+    if (e.keyCode === 32 || e.keyCode === 119) {
+        disparos.push({
+            left: nave.left + 20,
+            top: nave.top - 20 
+        });
+        posicionDisparo();
+        audio.play();
+
+    }
+    posicionNave();
+}
+
+
+function posicionDisparo() {
+    document.getElementById('disparos').innerHTML = ""
+    for(var i = 0 ; i < disparos.length ; i++ ) {
+        document.getElementById('disparos').innerHTML += `<div class='disparo' style='left:${disparos[i].left}px; top:${disparos[i].top}px'></div>`;
+    }
+}
+
+
+function posicionNave() {
+    //  document.getElementById('nostromo').innerHTML = ""
+    
+    // document.getElementById('nostromo').innerHTML += `<div class='nostromo' style='left:${nave.left}px; top:${nave.top}px'></div>`;
+   
+     const changeDOM = document.getElementById('nostromo');
+     changeDOM.style.left = nave.left + 'px';
+     changeDOM.style.top = nave.top + 'px';
+}
+
+
+
+function disparando() {
+    for(var i = 0 ; i < disparos.length ; i++ ) {
+        disparos[i].top = disparos[i].top - 12
+    }
+}
+
+function posicionEnemigos() {
+    musicaFondo.play();
+
+    document.getElementById('enemigos').innerHTML = ""
+    for(var i = 0 ; i < enemigos.length ; i++ ) {
+        document.getElementById('enemigos').innerHTML += `<div class='enemigos' style='left:${enemigos[i].left}px; top:${enemigos[i].top}px'></div>`;
+    }
+}
+
+
+
+
+function movimientoEnemigos() {
+            const dx = Math.sin(Date.now()/1000)*5;
+            const dy = Math.cos(Date.now()/1000)*3;
+            for (let i = 0; i < enemigos.length; i++){
+                const enemigo = enemigos[i];
+                var a = enemigo.left+ dx;
+                var b = enemigo.top + dy;
+                enemigos[i].left=a;
+                enemigos[i].top=b;
+
+            }
+
+        }
+
+
+
+
+function impactoDisparo() {
+    for (var enemigo = 0; enemigo < enemigos.length; enemigo++) {
+        for (var disparo = 0; disparo < disparos.length; disparo++) {
+            if ( 
+                disparos[disparo].left >= enemigos[enemigo].left  &&
+                disparos[disparo].left <= (enemigos[enemigo].left + 50)  &&
+                disparos[disparo].top <= (enemigos[enemigo].top + 50)  &&
+                disparos[disparo].top >= enemigos[enemigo].top
+            ) {
+                enemigos.splice(enemigo, 1);
+                disparos.splice(disparo, 1);
+            }
+        }
+    }
+    if (enemigos.length === 0 && ganar === 1){
+        ganaste.play();
+        ganar = 0;
+    }
+}
+
+function loop() {
+    setTimeout(loop, 100)
+    disparando();
+    
+    posicionDisparo();
+    movimientoEnemigos();
+    posicionEnemigos();
+    impactoDisparo();
+}
+ loop();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,109 @@
+body{
+    margin: 2;
+
+    background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+
+    overflow-y: hidden; 
+    /* sin scroll */
+
+}
+
+.espacio{
+    /* height: 80vh;
+    width: 40vw; */
+    width: 800px;
+    height: 1000px;
+    border: 1px solid black;
+    margin: 5rem auto;
+    /* background: url('./assets/fondo2.jpg');
+    background-size: cover; */
+    position: relative;
+    box-shadow: 1px 2px 60px rgba(0, 0, 0, 4);
+    overflow-y: hidden;
+}
+#back{
+    height: 500%;
+    width: 100%;
+    background: url('./assets/fondo2.jpg');
+    display: block;
+    position: relative;
+    bottom: 0%;
+    left: 0%;
+    z-index: -3;
+    background-repeat: repeat-y ;
+    animation: moveBackground 200s  linear infinite ;
+}
+
+
+/* 
+div#nostromo {
+    width: 70px;
+    height: 50px;
+    background-image: url('assets/nNaVEe.png');
+    /* background-size: cover; 
+    position: absolute;
+    left: 400px;
+    top: 700px;
+} */
+
+/* div#nostromo {
+    width: 800px;
+    height: 1000px;
+    position: absolute;
+} */
+div#nostromo {
+    width: 70px;
+    height: 50px;
+    background-image: url('assets/nNaVEe.png');
+    background-size: cover;
+    position: absolute;
+top: 700px;
+left: 400px;
+
+}
+
+
+div#disparos {
+    width: 800px;
+    height: 1000px;
+    position: absolute;
+}
+
+div.disparo{
+    width: 10px;
+    height: 20px;
+    background-image: url('assets/pium.jpg');
+    background-size: cover;
+    position: absolute;
+    z-index: -1;
+
+}
+
+div#enemigos {
+    width: 800px;
+    height: 1000px;
+    position: absolute;
+}
+
+div.enemigos {
+    width: 40px;
+    height: 25px;
+    background-image: url('assets/enemy1.png');
+    background-size: cover;
+    position: absolute;
+    z-index: -1;
+}
+
+@keyframes moveBackground{
+    100%{transform: translateY(-3000px) }
+}
+
+
+/* @keyframes moveLeft{
+    100%{transform: translateX(-2000px) }
+     0%{transform: translateX(-200px);} 
+}
+
+.moveLeft{
+ animation: moveLeft 2s linear;
+} */
