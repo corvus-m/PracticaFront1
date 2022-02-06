@@ -6,6 +6,7 @@
 
 
 
+
 ## Controles
 
 Usa las flechas izquierda y derecha para mover "Nostromo", tu nave, que no hace justicia a su predecesora.
